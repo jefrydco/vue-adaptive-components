@@ -8,7 +8,7 @@ describe('vue-adaptive-save-data', () => {
     const wrapper = mount(VueAdaptiveSaveData, {
       localVue,
       scopedSlots: {
-        default: '<template>{{ props.saveData.unsupported }}</template>'
+        default: '<template>{{ props.unsupported }}</template>'
       }
     })
 
@@ -28,7 +28,7 @@ describe('vue-adaptive-save-data', () => {
       scopedSlots: {
         default: `
           <template>
-            {{ props.saveData.saveData ? 'saving' : 'not saving' }}
+            {{ props.saveData ? 'saving' : 'not saving' }}
           </template>
         `
       }
@@ -50,7 +50,7 @@ describe('vue-adaptive-save-data', () => {
       scopedSlots: {
         default: `
           <template>
-            {{ props.saveData.saveData ? 'saving' : 'not saving' }}
+            {{ props.saveData ? 'saving' : 'not saving' }}
           </template>
         `
       }

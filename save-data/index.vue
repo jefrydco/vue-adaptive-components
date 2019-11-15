@@ -1,6 +1,6 @@
 <template>
   <div class="vue-adaptive-save-data">
-    <slot :saveData="{ unsupported, saveData }" />
+    <slot v-bind="{ unsupported, saveData }" />
   </div>
 </template>
 

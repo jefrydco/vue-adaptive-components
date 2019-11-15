@@ -19,7 +19,7 @@ describe('vue-adaptive-memory', () => {
     const wrapper = mount(VueAdaptiveMemory, {
       localVue,
       scopedSlots: {
-        default: '<template>{{ props.memory }}</template>'
+        default: '<template>{{ props }}</template>'
       }
     })
 
@@ -47,7 +47,7 @@ describe('vue-adaptive-memory', () => {
     const wrapper = mount(VueAdaptiveMemory, {
       localVue,
       scopedSlots: {
-        default: '<template>{{ props.memory }}</template>'
+        default: '<template>{{ props }}</template>'
       }
     })
     expect(wrapper.vm.initialMemoryStatus).toEqual(mockMemoryStatus)

@@ -14,7 +14,7 @@ describe('vue-adaptive-network', () => {
     const wrapper = mount(VueAdaptiveNetwork, {
       localVue,
       scopedSlots: {
-        default: '<template>{{ props.network }}</template>'
+        default: '<template>{{ props }}</template>'
       }
     })
     await localVue.nextTick()
@@ -27,7 +27,7 @@ describe('vue-adaptive-network', () => {
     const wrapper = mount(VueAdaptiveNetwork, {
       localVue,
       scopedSlots: {
-        default: '<template>{{ props.network }}</template>'
+        default: '<template>{{ props }}</template>'
       }
     })
     wrapper.setData({ networkStatus: { effectiveConnectionType: '2g' } })
@@ -52,7 +52,7 @@ describe('vue-adaptive-network', () => {
     const wrapper = mount(VueAdaptiveNetwork, {
       localVue,
       scopedSlots: {
-        default: '<template>{{ props.network }}</template>'
+        default: '<template>{{ props }}</template>'
       }
     })
 
