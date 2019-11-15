@@ -1,34 +1,70 @@
 {
-  "name": "react-adaptive-hooks",
-  "version": "0.0.5",
+  "name": "vue-adaptive-components",
+  "version": "0.0.1",
   "description": "Give users a great experience best suited to their device and network constraints",
   "main": "index.js",
-  "repository": "https://github.com/GoogleChromeLabs/react-adaptive-hooks",
-  "author": "Google Chrome",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefrydco/vue-adaptive-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jefrydco/vue-adaptive-components/issues"
+  },
+  "homepage": "https://github.com/jefrydco/vue-adaptive-components#readme",
+  "author": {
+    "name": "jefrydco",
+    "email": "jefrydco@gmail.com"
+  },
   "license": "Apache-2.0",
   "private": false,
   "scripts": {
     "test": "jest"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "vue": "^2.6.10"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
-    "ua-parser-js": "^0.7.20",
-    "@testing-library/react-hooks": "^1.1.0",
+    "@testing-library/react-hooks": "^3.2.1",
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
     "babel-polyfill": "^6.26.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-vue": "^6.0.1",
+    "husky": "^3.0.9",
     "jest": "^24.8.0",
-    "react-test-renderer": "16.9.0"
+    "lint-staged": "^9.4.3",
+    "prettier": "^1.19.1",
+    "vue": "^2.6.10",
+    "vue-jest": "^3.0.5",
+    "vue-template-compiler": "^2.6.10"
   },
   "keywords": [
-    "react-hooks",
-    "hooks",
-    "react",
+    "vue-components",
+    "components",
+    "vue",
     "performance"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }

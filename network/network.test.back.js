@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks'
 
-import { useNetworkStatus } from './';
+import { useNetworkStatus } from './'
 
 describe('useNetworkStatus', () => {
   test('should return 4g of effectiveConnectionType', () => {
@@ -24,35 +24,37 @@ describe('useNetworkStatus', () => {
       effectiveType: '4g',
       addEventListener: jest.fn(),
       removeEventListener: jest.fn()
-    };
+    }
 
-    const { result } = renderHook(() => useNetworkStatus());
-    
-    expect(result.current.effectiveConnectionType).toEqual('4g');
-  });
+    const { result } = renderHook(() => useNetworkStatus())
+
+    expect(result.current.effectiveConnectionType).toEqual('4g')
+  })
 
   test('should update the effectiveConnectionType state', () => {
-    const { result } = renderHook(() => useNetworkStatus());
+    const { result } = renderHook(() => useNetworkStatus())
 
-    act(() => result.current.setNetworkStatus({effectiveConnectionType: '2g'}));
-  
-    expect(result.current.effectiveConnectionType).toEqual('2g');
-  });
+    act(() =>
+      result.current.setNetworkStatus({ effectiveConnectionType: '2g' })
+    )
+
+    expect(result.current.effectiveConnectionType).toEqual('2g')
+  })
 
   test('should update the effectiveConnectionType state when navigator.connection change event', () => {
-    const map = {};
+    const map = {}
     global.navigator.connection = {
       effectiveType: '2g',
       addEventListener: jest.fn().mockImplementation((event, callback) => {
-        map[event] = callback;
+        map[event] = callback
       }),
       removeEventListener: jest.fn()
-    };
+    }
 
-    const { result } = renderHook(() => useNetworkStatus());
-    global.navigator.connection.effectiveType = '4g';
-    act(() => map.change());
+    const { result } = renderHook(() => useNetworkStatus())
+    global.navigator.connection.effectiveType = '4g'
+    act(() => map.change())
 
-    expect(result.current.effectiveConnectionType).toEqual('4g');
-  });
-});
+    expect(result.current.effectiveConnectionType).toEqual('4g')
+  })
+})

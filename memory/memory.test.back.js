@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks'
 
 afterEach(function() {
   // Reload hook for every test
-  jest.resetModules();
-});
+  jest.resetModules()
+})
 
 const getMemoryStatus = currentResult => ({
   deviceMemory: currentResult.deviceMemory,
   totalJSHeapSize: currentResult.totalJSHeapSize,
   usedJSHeapSize: currentResult.usedJSHeapSize,
   jsHeapSizeLimit: currentResult.jsHeapSizeLimit
-});
+})
 
 describe('useMemoryStatus', () => {
   test(`should return "true" for unsupported case`, () => {
-    const { useMemoryStatus } = require('./');
-    const { result } = renderHook(() => useMemoryStatus());
+    const { useMemoryStatus } = require('./')
+    const { result } = renderHook(() => useMemoryStatus())
 
-    expect(result.current.unsupported).toBe(true);
-  });
+    expect(result.current.unsupported).toBe(true)
+  })
 
   test('should return mockMemory status', () => {
     const mockMemoryStatus = {
@@ -42,19 +42,19 @@ describe('useMemoryStatus', () => {
       totalJSHeapSize: 60,
       usedJSHeapSize: 40,
       jsHeapSizeLimit: 50
-    };
+    }
 
-    global.navigator.deviceMemory = mockMemoryStatus.deviceMemory;
+    global.navigator.deviceMemory = mockMemoryStatus.deviceMemory
 
     global.window.performance.memory = {
       totalJSHeapSize: mockMemoryStatus.totalJSHeapSize,
       usedJSHeapSize: mockMemoryStatus.usedJSHeapSize,
       jsHeapSizeLimit: mockMemoryStatus.jsHeapSizeLimit
-    };
+    }
 
-    const { useMemoryStatus } = require('./');
-    const { result } = renderHook(() => useMemoryStatus());
+    const { useMemoryStatus } = require('./')
+    const { result } = renderHook(() => useMemoryStatus())
 
-    expect(getMemoryStatus(result.current)).toEqual(mockMemoryStatus);
-  });
-});
+    expect(getMemoryStatus(result.current)).toEqual(mockMemoryStatus)
+  })
+})

@@ -14,37 +14,37 @@
  * limitations under the License.
  */
 
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks'
 
 afterEach(function() {
   // Reload hook for every test
-  jest.resetModules();
-});
+  jest.resetModules()
+})
 
 describe('useSaveData', () => {
   test(`should return "true" for unsupported case`, () => {
-    const { useSaveData } = require('./');
-    const { result } = renderHook(() => useSaveData());
-    expect(result.current.unsupported).toBe(true);
-  });
+    const { useSaveData } = require('./')
+    const { result } = renderHook(() => useSaveData())
+    expect(result.current.unsupported).toBe(true)
+  })
 
   test(`should return "true" for enabled save data`, () => {
     global.navigator.connection = {
       saveData: true
-    };
-    const { useSaveData } = require('./');
-    const { result } = renderHook(() => useSaveData());
+    }
+    const { useSaveData } = require('./')
+    const { result } = renderHook(() => useSaveData())
 
-    expect(result.current.saveData).toEqual(navigator.connection.saveData);
-  });
+    expect(result.current.saveData).toEqual(navigator.connection.saveData)
+  })
 
   test(`should return "false" for disabled save data`, () => {
     global.navigator.connection = {
       saveData: false
-    };
-    const { useSaveData } = require('./');
-    const { result } = renderHook(() => useSaveData());
+    }
+    const { useSaveData } = require('./')
+    const { result } = renderHook(() => useSaveData())
 
-    expect(result.current.saveData).toEqual(navigator.connection.saveData);
-  });
-});
+    expect(result.current.saveData).toEqual(navigator.connection.saveData)
+  })
+})

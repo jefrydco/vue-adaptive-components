@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-let initialHardwareConcurrency;
-if (typeof navigator !== 'undefined' && 'hardwareConcurrency' in navigator) {
-  initialHardwareConcurrency = { numberOfLogicalProcessors: navigator.hardwareConcurrency };
+let unsupported
+if ('connection' in navigator && 'saveData' in navigator.connection) {
+  unsupported = false
 } else {
-  initialHardwareConcurrency = { unsupported: true };
+  unsupported = true
 }
-const useHardwareConcurrency = () => {
-  return { ...initialHardwareConcurrency };
-};
 
-export { useHardwareConcurrency };
+const saveData = unsupported ? null : navigator.connection.saveData === true
+
+const useSaveData = () => {
+  return { unsupported, saveData }
+}
+
+export { useSaveData }
