@@ -12,7 +12,7 @@ describe('vue-adaptive-hardware-concurrency', () => {
     const wrapper = mount(VueAdaptiveHardwareConcurrency, {
       localVue,
       scopedSlots: {
-        default: '<template>{{ props.hardwareConcurrency }}</template>'
+        default: '<template>{{ props }}</template>'
       }
     })
 
@@ -34,8 +34,7 @@ describe('vue-adaptive-hardware-concurrency', () => {
     const wrapper = mount(VueAdaptiveHardwareConcurrency, {
       localVue,
       scopedSlots: {
-        default:
-          '<template>{{ props.hardwareConcurrency.numberOfLogicalProcessors }}</template>'
+        default: '<template>{{ props.numberOfLogicalProcessors }}</template>'
       }
     })
 
@@ -55,8 +54,7 @@ describe('vue-adaptive-hardware-concurrency', () => {
     const wrapper = mount(VueAdaptiveHardwareConcurrency, {
       localVue,
       scopedSlots: {
-        default:
-          '<template>{{ props.hardwareConcurrency.numberOfLogicalProcessors }}</template>'
+        default: '<template>{{ props.numberOfLogicalProcessors }}</template>'
       }
     })
 

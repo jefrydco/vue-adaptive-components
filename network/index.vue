@@ -1,6 +1,6 @@
 <template>
   <div class="vue-adaptive-network">
-    <slot :network="{ unsupported, ...networkStatus }" />
+    <slot v-bind="{ unsupported, ...networkStatus }" />
   </div>
 </template>
 

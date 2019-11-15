@@ -1,7 +1,7 @@
 <template>
   <div class="vue-adaptive-hardware-concurrency">
     <slot
-      :hardwareConcurrency="{
+      v-bind="{
         unsupported,
         ...initialHardwareConcurrency
       }"
