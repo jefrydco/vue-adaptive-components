@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-let initialHardwareConcurrency;
+let initialHardwareConcurrency
 if (typeof navigator !== 'undefined' && 'hardwareConcurrency' in navigator) {
   initialHardwareConcurrency = {
     unsupported: false,
     numberOfLogicalProcessors: navigator.hardwareConcurrency
   };
 } else {
-  initialHardwareConcurrency = { unsupported: true };
+  initialHardwareConcurrency = { unsupported: true }
 }
 const useHardwareConcurrency = () => {
-  return { ...initialHardwareConcurrency };
-};
+  return { ...initialHardwareConcurrency }
+}
 
-export { useHardwareConcurrency };
+export { useHardwareConcurrency }

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks'
 
-import { useNetworkStatus } from './';
+import { useNetworkStatus } from './'
 
 describe('useNetworkStatus', () => {
   const map = {};
@@ -91,8 +91,13 @@ describe('useNetworkStatus', () => {
   });
 
   test('should update the effectiveConnectionType state', () => {
-    const { result } = renderHook(() => useNetworkStatus());
+    const { result } = renderHook(() => useNetworkStatus())
 
+    act(() =>
+      result.current.setNetworkStatus({ effectiveConnectionType: '2g' })
+    )
+
+<<<<<<< HEAD:network/network.test.js
     act(() =>
       result.current.setNetworkStatus({ effectiveConnectionType: '2g' })
     );
@@ -105,11 +110,26 @@ describe('useNetworkStatus', () => {
       ...ectStatusListeners,
       effectiveType: '2g'
     };
+=======
+    expect(result.current.effectiveConnectionType).toEqual('2g')
+  })
 
-    const { result } = renderHook(() => useNetworkStatus());
-    global.navigator.connection.effectiveType = '4g';
-    act(() => map.change());
+  test('should update the effectiveConnectionType state when navigator.connection change event', () => {
+    const map = {}
+    global.navigator.connection = {
+      effectiveType: '2g',
+      addEventListener: jest.fn().mockImplementation((event, callback) => {
+        map[event] = callback
+      }),
+      removeEventListener: jest.fn()
+    }
+>>>>>>> Initial port:network/network.test.back.js
 
+    const { result } = renderHook(() => useNetworkStatus())
+    global.navigator.connection.effectiveType = '4g'
+    act(() => map.change())
+
+<<<<<<< HEAD:network/network.test.js
     expect(result.current.effectiveConnectionType).toEqual('4g');
   });
 
@@ -126,3 +146,8 @@ describe('useNetworkStatus', () => {
     testEctStatusEventListenerMethod(ectStatusListeners.removeEventListener);
   });
 });
+=======
+    expect(result.current.effectiveConnectionType).toEqual('4g')
+  })
+})
+>>>>>>> Initial port:network/network.test.back.js

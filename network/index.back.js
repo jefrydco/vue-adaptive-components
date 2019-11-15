@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
-let unsupported;
+let unsupported
 
 const useNetworkStatus = initialEffectiveConnectionType => {
   if ('connection' in navigator && 'effectiveType' in navigator.connection) {
-    unsupported = false;
+    unsupported = false
   } else {
-    unsupported = true;
+    unsupported = true
   }
 
   const initialNetworkStatus = {
@@ -32,24 +32,30 @@ const useNetworkStatus = initialEffectiveConnectionType => {
       : navigator.connection.effectiveType
   };
 
-  const [networkStatus, setNetworkStatus] = useState(initialNetworkStatus);
+  const [networkStatus, setNetworkStatus] = useState(initialNetworkStatus)
 
   useEffect(() => {
     if (!unsupported) {
-      const navigatorConnection = navigator.connection;
+      const navigatorConnection = navigator.connection
       const updateECTStatus = () => {
         setNetworkStatus({
           effectiveConnectionType: navigatorConnection.effectiveType
+<<<<<<< HEAD:network/index.js
         });
       };
       navigatorConnection.addEventListener('change', updateECTStatus);
+=======
+        })
+      }
+      navigatorConnection.addEventListener('change', updateECTStatus)
+>>>>>>> Initial port:network/index.back.js
       return () => {
-        navigatorConnection.removeEventListener('change', updateECTStatus);
-      };
+        navigatorConnection.removeEventListener('change', updateECTStatus)
+      }
     }
-  }, []);
+  }, [])
 
-  return { ...networkStatus, setNetworkStatus };
-};
+  return { ...networkStatus, setNetworkStatus }
+}
 
-export { useNetworkStatus };
+export { useNetworkStatus }

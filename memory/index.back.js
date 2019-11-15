@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-let unsupported;
+let unsupported
 if (typeof navigator !== 'undefined' && 'deviceMemory' in navigator) {
-  unsupported = false;
+  unsupported = false
 } else {
-  unsupported = true;
+  unsupported = true
 }
 let memoryStatus;
 if (!unsupported) {
@@ -44,4 +44,4 @@ const useMemoryStatus = initialMemoryStatus => {
     : { ...memoryStatus };
 };
 
-export { useMemoryStatus };
+export { useMemoryStatus }

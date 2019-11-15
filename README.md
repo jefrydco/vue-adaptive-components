@@ -1,8 +1,8 @@
-# React Adaptive Loading Hooks &amp; Utilities &middot; ![](https://img.shields.io/github/license/GoogleChromeLabs/react-adaptive-hooks.svg) [![Build Status](https://travis-ci.org/GoogleChromeLabs/react-adaptive-hooks.svg?branch=master)](https://travis-ci.org/GoogleChromeLabs/react-adaptive-hooks) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-adaptive-hooks)
+# Vue Adaptive Loading Components &amp; Utilities &middot; ![](https://img.shields.io/github/license/GoogleChromeLabs/react-adaptive-hooks.svg) [![Build Status](https://travis-ci.org/GoogleChromeLabs/react-adaptive-hooks.svg?branch=master)](https://travis-ci.org/GoogleChromeLabs/react-adaptive-hooks) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-adaptive-hooks)
 
 > Deliver experiences best suited to a user's device and network constraints (experimental)
 
-This is a suite of [React Hooks](https://reactjs.org/docs/hooks-overview.html) and utilities for adaptive loading based on a user's:
+This is a suite of [Vue Components](https://vuejs.org/v2/guide/components.html) and utilities for adaptive loading based on a user's:
 
 * [Network via effective connection type](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/effectiveType)
 * [Data Saver preferences](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/saveData)
@@ -17,54 +17,46 @@ Make it easier to target low-end devices while progressively adding high-end-onl
 
 ## Installation
 
-`npm i react-adaptive-hooks --save` or `yarn add react-adaptive-hooks`
+`npm i vue-adaptive-components --save` or `yarn add vue-adaptive-components`
 
 ## Usage
 
-You can import the hooks you wish to use as follows:
+You can import the components you wish to use as follows:
 
 ```js
-import { useNetworkStatus } from 'react-adaptive-hooks/network';
-import { useSaveData } from 'react-adaptive-hooks/save-data';
-import { useHardwareConcurrency } from 'react-adaptive-hooks/hardware-concurrency';
-import { useMemoryStatus } from 'react-adaptive-hooks/memory';
+import VueAdaptiveNetwork from 'vue-adaptive-components/network';
+import VueAdaptiveSaveData from 'vue-adaptive-components/save-data';
+import VueAdaptiveMemory from 'vue-adaptive-components/hardware-concurrency';
+import VueAdaptiveHardwareConcurrency from 'vue-adaptive-components/memory';
 ```
 
-and then use them in your components. Examples for each hook and utility can be found below:
+and then use them in your components. Examples for each component and utility can be found below:
 
 ### Network
 
-`useNetworkStatus` React hook for adapting based on network status (effective connection type)
+`VueAdaptiveNetwork` Vue component for getting network status (effective connection type)
 
-```js
-import React from 'react';
+```html
+<template>
+  <vue-adaptive-network>
+    <template v-slot="{ effectiveConnectionType }">
+      <img v-if="effectiveConnectionType === 'slow-2g'" src='...' alt='low resolution' />
+      <img v-if="effectiveConnectionType === '2g'" src='...' alt='medium resolution' />
+      <img v-if="effectiveConnectionType === '3g'" src='...' alt='high resolution' />
+      <video v-if="effectiveConnectionType === '4g'" muted="" controls="">...</video>;
+    </template>
+  </vue-adaptive-network>
+</template>
 
-import { useNetworkStatus } from 'react-adaptive-hooks/network';
+<script>
+import VueAdaptiveNetwork from 'vue-adaptive-components/network'
 
-const MyComponent = () => {
-  const { effectiveConnectionType } = useNetworkStatus();
-
-  let media;
-  switch(effectiveConnectionType) {
-    case 'slow-2g':
-      media = <img src='...' alt='low resolution' />;
-      break;
-    case '2g':
-      media = <img src='...' alt='medium resolution' />;
-      break;
-    case '3g':
-      media = <img src='...' alt='high resolution' />;
-      break;
-    case '4g':
-      media = <video muted controls>...</video>;
-      break;
-    default:
-      media = <video muted controls>...</video>;
-      break;
+export default {
+  components: {
+    VueAdaptiveNetwork
   }
-  
-  return <div>{media}</div>;
-};
+}
+</script>
 ```
 
 `effectiveConnectionType` values can be `slow-2g`, `2g`, `3g`, or `4g`.
@@ -79,21 +71,27 @@ const { effectiveConnectionType } = useNetworkStatus(initialEffectiveConnectionT
 
 ### Save Data
 
-`useSaveData` utility for adapting based on the user's browser Data Saver preferences.
+`VueAdaptiveSaveData` Utility for getting Save Data whether it's Lite mode enabled or not
 
-```js
-import React from 'react';
+```html
+<template>
+  <vue-adaptive-save-data>
+    <template v-slot="{ saveData }">
+      <img v-if="saveData" src='...' />
+      <video v-else="" muted="" controls="">...</video>
+    </template>
+  </vue-adaptive-save-data>
+</template>
 
-import { useSaveData } from 'react-adaptive-hooks/save-data';
+<script>
+import VueAdaptiveSaveData from 'vue-adaptive-components/save-data'
 
-const MyComponent = () => {
-  const { saveData } = useSaveData();
-  return (
-    <div>
-      { saveData ? <img src='...' /> : <video muted controls>...</video> }
-    </div>
-  );
-};
+export default {
+  components: {
+    VueAdaptiveSaveData
+  }
+}
+</script>
 ```
 
 `saveData` values can be `true` or `false`.
@@ -108,142 +106,105 @@ const { saveData } = useSaveData(initialSaveDataStatus);
 
 ### CPU Cores / Hardware Concurrency
 
-`useHardwareConcurrency` utility for adapting to the number of logical CPU processor cores on the user's device.
+`VueAdaptiveHardwareConcurrency` Utility for getting the number of logical CPU processor cores of the user's device
 
-```js
-import React from 'react';
+```html
+<template>
+  <vue-adaptive-hardware-concurrency>
+    <template v-slot="{ numberOfLogicalProcessors }">
+      <img v-if="numberOfLogicalProcessors <= 4" src='...' />
+      <video v-else="" muted="" controls="">...</video>
+    </template>
+  </vue-adaptive-hardware-concurrency>
+</template>
 
-import { useHardwareConcurrency } from 'react-adaptive-hooks/hardware-concurrency';
+<script>
+import VueAdaptiveHardwareConcurrency from 'vue-adaptive-components/hardware-concurrency'
 
-const MyComponent = () => {
-  const { numberOfLogicalProcessors } = useHardwareConcurrency();
-  return (
-    <div>
-      { numberOfLogicalProcessors <= 4 ? <img src='...' /> : <video muted controls>...</video> }
-    </div>
-  );
-};
+export default {
+  components: {
+    VueAdaptiveHardwareConcurrency
+  }
+}
+</script>
 ```
-
-`numberOfLogicalProcessors` values can be the number of logical processors available to run threads on the user's device. 
 
 ### Memory
 
-`useMemoryStatus` utility for adapting based on the user's device memory (RAM)
+`VueAdaptiveMemoryStatus` Utility for getting memory status of the device
 
-```js
-import React from 'react';
+```html
+<template>
+  <vue-adaptive-memory-status>
+    <template v-slot="{ deviceMemory }">
+      <img v-if="deviceMemory < 4" src='...' />
+      <video v-else="" muted="" controls="">...</video>
+    </template>
+  </vue-adaptive-memory-status>
+</template>
 
-import { useMemoryStatus } from 'react-adaptive-hooks/memory';
+<script>
+import VueAdaptiveMemoryStatus from 'vue-adaptive-components/memory'
 
-const MyComponent = () => {
-  const { deviceMemory } = useMemoryStatus();
-  return (
-    <div>
-      { deviceMemory < 4 ? <img src='...' /> : <video muted controls>...</video> }
-    </div>
-  );
-};
-```
-
-`deviceMemory` values can be the approximate amount of device memory in gigabytes.
-
-This hook accepts an optional `initialMemoryStatus` object argument, which can be used to provide a `deviceMemory` state value when the user's browser does not support the relevant [DeviceMemory API](https://github.com/w3c/device-memory). Passing an initial value can also prove useful for server-side rendering, where the developer can pass a server [Device-Memory Client Hint](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/client-hints#save-data) to detect the memory capacity of the user's device.
-
-```js
-// Inside of a functional React component
-const initialMemoryStatus = { deviceMemory: 4 };
-const { deviceMemory } = useMemoryStatus(initialMemoryStatus);
+export default {
+  components: {
+    VueAdaptiveMemoryStatus
+  }
+}
+</script>
 ```
 
 ### Adaptive Code-loading & Code-splitting
 
 #### Code-loading
 
-Deliver a light, interactive core experience to users and progressively add high-end-only features on top, if a user's hardware can handle it. Below is an example using the Network Status hook:
+Deliver a light, interactive core experience to users and progressively add high-end-only features on top, if a users hardware can handle it. Below is an example using the Network Status component:
 
-```js
-import React, { Suspense, lazy } from 'react';
+```html
+<template>
+  <vue-adaptive-network>
+    <template v-slot="{ effectiveConnectionType }">
+      <vue-full v-if="effectiveConnectionType === '4g'"/>
+      <vue-light v-else="" />
+    </template>
+  </vue-adaptive-network>
+</template>
 
-import { useNetworkStatus } from 'react-adaptive-hooks/network';
+<script>
+import VueAdaptiveNetwork from 'vue-adaptive-components/network'
 
-const Full = lazy(() => import(/* webpackChunkName: "full" */ './Full.js'));
-const Light = lazy(() => import(/* webpackChunkName: "light" */ './Light.js'));
-
-const MyComponent = () => {
-  const { effectiveConnectionType } = useNetworkStatus();
-  return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        { effectiveConnectionType === '4g' ? <Full /> : <Light /> }
-      </Suspense>
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-Light.js:
-```js
-import React from 'react';
-
-const Light = ({ imageUrl, ...rest }) => (
-  <img src={imageUrl} {...rest} />
-);
-
-export default Light;
-```
-
-Full.js:
-```js
-import React from 'react';
-import Magnifier from 'react-magnifier';
-
-const Full = ({ imageUrl, ...rest }) => (
-  <Magnifier src={imageUrl} {...rest} />
-);
-
-export default Full;
-```
-
-#### Code-splitting
-
-We can extend `React.lazy()` by incorporating a check for a device or network signal. Below is an example of network-aware code-splitting. This allows us to conditionally load a light core experience or full-fat experience depending on the user's effective connection speed (via `navigator.connection.effectiveType`).
-
-```js
-import React, { Suspense } from 'react';
-
-const Component = React.lazy(() => {
-  const effectiveType = navigator.connection ? navigator.connection.effectiveType : null
-
-  let module;
-  switch (effectiveType) {
-    case '3g':
-      module = import(/* webpackChunkName: "light" */ './Light.js');
-      break;
-    case '4g':
-      module = import(/* webpackChunkName: "full" */ './Full.js');
-      break;
-    default:
-      module = import(/* webpackChunkName: "full" */ './Full.js');
-      break;
+export default {
+  components: {
+    VueAdaptiveNetwork,
+    VueFull: () => import(/* webpackChunkName: "full" */'./vue-full'),
+    VueLight: () => import(/* webpackChunkName: "light" */'./vue-light)
   }
+}
+</script>
+```
 
-  return module;
-});
+vue-light.vue:
+```html
+<template functional>
+  <img :src="props.imageUrl" alt='product' />
+</template>
+```
 
-const App = () => {
-  return (
-    <div className='App'>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Component />
-      </Suspense>
-    </div>
-  );
-};
+vue-full.vue:
+```html
+<template>
+  <vue-magnifier :src="imageUrl" :src-large="imageLargeUrl" alt='product' />
+</template>
 
-export default App;
+<script>
+import VueMagnifier from 'vue-magnifier'
+
+export default {
+  components: {
+    VueMagnifier
+  }
+}
+</script>
 ```
 
 ## Browser Support
@@ -307,3 +268,5 @@ Licensed under the Apache-2.0 license.
 ## Team
 
 This project is brought to you by [Addy Osmani](https://github.com/addyosmani) and [Anton Karlovskiy](https://github.com/anton-karlovskiy).
+
+Ported to Vue by [jefrydco](https://github.com/jefrydco).

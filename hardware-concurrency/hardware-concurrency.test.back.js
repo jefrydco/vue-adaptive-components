@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks'
 
 afterEach(function() {
   // Reload hook for every test
-  jest.resetModules();
-});
+  jest.resetModules()
+})
 
 describe('useHardwareConcurrency', () => {
   const navigator = window.navigator;
@@ -42,38 +42,37 @@ describe('useHardwareConcurrency', () => {
   });
 
   test(`should return window.navigator.hardwareConcurrency`, () => {
-    const { useHardwareConcurrency } = require('./');
-    const { result } = renderHook(() => useHardwareConcurrency());
-
+    const { useHardwareConcurrency } = require('./')
+    const { result } = renderHook(() => useHardwareConcurrency())
     expect(result.current.numberOfLogicalProcessors).toBe(
       window.navigator.hardwareConcurrency
-    );
+    )
     expect(result.current.unsupported).toBe(false);
-  });
+  })
 
   test('should return 4 for device of hardwareConcurrency = 4', () => {
     Object.defineProperty(window.navigator, 'hardwareConcurrency', {
       value: 4,
       configurable: true,
       writable: true
-    });
-    const { useHardwareConcurrency } = require('./');
-    const { result } = renderHook(() => useHardwareConcurrency());
+    })
+    const { useHardwareConcurrency } = require('./')
+    const { result } = renderHook(() => useHardwareConcurrency())
 
-    expect(result.current.numberOfLogicalProcessors).toEqual(4);
+    expect(result.current.numberOfLogicalProcessors).toEqual(4)
     expect(result.current.unsupported).toBe(false);
-  });
+  })
 
   test('should return 2 for device of hardwareConcurrency = 2', () => {
     Object.defineProperty(window.navigator, 'hardwareConcurrency', {
       value: 2,
       configurable: true,
       writable: true
-    });
-    const { useHardwareConcurrency } = require('./');
-    const { result } = renderHook(() => useHardwareConcurrency());
+    })
+    const { useHardwareConcurrency } = require('./')
+    const { result } = renderHook(() => useHardwareConcurrency())
 
-    expect(result.current.numberOfLogicalProcessors).toEqual(2);
+    expect(result.current.numberOfLogicalProcessors).toEqual(2)
     expect(result.current.unsupported).toBe(false);
-  });
-});
+  })
+})
