@@ -1,4 +1,6 @@
-# Vue Adaptive Loading Components &amp; Utilities &middot; ![](https://img.shields.io/github/license/GoogleChromeLabs/react-adaptive-hooks.svg) [![Build Status](https://travis-ci.org/GoogleChromeLabs/react-adaptive-hooks.svg?branch=master)](https://travis-ci.org/GoogleChromeLabs/react-adaptive-hooks) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-adaptive-hooks)
+# Vue Adaptive Loading Components &amp; Utilities
+
+![](https://img.shields.io/github/license/jefrydco/vue-adaptive-components.svg) [![CircleCI](https://circleci.com/gh/jefrydco/vue-adaptive-components.svg?style=svg)](https://circleci.com/gh/jefrydco/vue-adaptive-components) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/vue-adaptive-components)
 
 > Deliver experiences best suited to a user's device and network constraints (experimental)
 
