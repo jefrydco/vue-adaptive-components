@@ -16,7 +16,7 @@
 
 import { renderHook, act } from '@testing-library/react-hooks'
 
-import { useNetworkStatus } from './'
+import { useNetworkStatus } from './index.upstream'
 
 describe('useNetworkStatus', () => {
   const map = {};

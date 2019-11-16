@@ -43,7 +43,7 @@ describe('useSaveData', () => {
     global.navigator.connection = {
       saveData: true
     }
-    const { useSaveData } = require('./')
+    const { useSaveData } = require('./index.upstream')
     const { result } = renderHook(() => useSaveData())
 
     expect(result.current.unsupported).toBe(false);
@@ -54,7 +54,7 @@ describe('useSaveData', () => {
     global.navigator.connection = {
       saveData: false
     }
-    const { useSaveData } = require('./')
+    const { useSaveData } = require('./index.upstream')
     const { result } = renderHook(() => useSaveData())
 
     expect(result.current.unsupported).toBe(false);

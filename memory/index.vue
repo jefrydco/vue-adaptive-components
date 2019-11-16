@@ -1,6 +1,11 @@
 <template>
   <div class="vue-adaptive-memory-status">
-    <slot :memoryStatus="{ unsupported, ...initialMemoryStatus }" />
+    <slot
+      :memoryStatus="{
+        unsupported,
+        ...memoryStatus
+      }"
+    />
   </div>
 </template>
 
@@ -10,7 +15,7 @@ export default {
   data() {
     return {
       unsupported: false,
-      initialMemoryStatus: {
+      memoryStatus: {
         deviceMemory: null,
         totalJSHeapSize: null,
         usedJSHeapSize: null,
@@ -19,35 +24,29 @@ export default {
     }
   },
   mounted() {
-    this.checkSupport()
     this.initMemoryStatus()
   },
   methods: {
-    checkSupport() {
-      if (typeof navigator !== 'undefined' && 'deviceMemory' in navigator) {
-        this.unsupported = false
-      } else {
-        this.unsupported = true
-      }
-    },
     initMemoryStatus() {
-      if (!this.unsupported) {
-        const performanceMemory =
-          'memory' in performance ? performance.memory : null
-        this.initialMemoryStatus = {
-          deviceMemory: navigator.deviceMemory,
-          totalJSHeapSize: performanceMemory
-            ? performanceMemory.totalJSHeapSize
-            : null,
-          usedJSHeapSize: performanceMemory
-            ? performanceMemory.usedJSHeapSize
-            : null,
-          jsHeapSizeLimit: performanceMemory
-            ? performanceMemory.jsHeapSizeLimit
-            : null
+      const { useMemoryStatus } = require('./index.upstream')
+
+      const {
+        unsupported,
+        deviceMemory,
+        totalJSHeapSize,
+        usedJSHeapSize,
+        jsHeapSizeLimit
+      } = useMemoryStatus()
+
+      if (!unsupported) {
+        this.memoryStatus = {
+          deviceMemory: deviceMemory,
+          totalJSHeapSize: totalJSHeapSize,
+          usedJSHeapSize: usedJSHeapSize,
+          jsHeapSizeLimit: jsHeapSizeLimit
         }
       } else {
-        this.initialMemoryStatus = { unsupported: this.unsupported }
+        this.unsupported = true
       }
     }
   }

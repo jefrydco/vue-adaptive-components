@@ -3,7 +3,7 @@
     <slot
       v-bind="{
         unsupported,
-        ...initialHardwareConcurrency
+        numberOfLogicalProcessors
       }"
     />
   </div>
@@ -15,35 +15,24 @@ export default {
   data() {
     return {
       unsupported: false,
-      initialHardwareConcurrency: {
-        numberOfLogicalProcessors: null
-      }
+      numberOfLogicalProcessors: null
     }
   },
   mounted() {
-    this.checkSupport()
     this.initHardwareConcurrency()
   },
   methods: {
-    checkSupport() {
-      if (
-        typeof navigator !== 'undefined' &&
-        'hardwareConcurrency' in navigator
-      ) {
-        this.unsupported = false
+    initHardwareConcurrency() {
+      const { useHardwareConcurrency } = require('./index.upstream')
+      const {
+        unsupported,
+        numberOfLogicalProcessors
+      } = useHardwareConcurrency()
+
+      if (!unsupported) {
+        this.numberOfLogicalProcessors = numberOfLogicalProcessors
       } else {
         this.unsupported = true
-      }
-    },
-    initHardwareConcurrency() {
-      if (!this.unsupported) {
-        this.initialHardwareConcurrency = {
-          numberOfLogicalProcessors: navigator.hardwareConcurrency
-        }
-      } else {
-        this.initialHardwareConcurrency = {
-          unsupported: this.unsupported
-        }
       }
     }
   }
