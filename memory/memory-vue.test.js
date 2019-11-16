@@ -1,5 +1,5 @@
 import { mount, createLocalVue } from '@vue/test-utils'
-import VueAdaptiveMemory from './index.vue'
+// import VueAdaptiveMemory from './index.vue'
 
 afterEach(() => {
   jest.resetModules()
@@ -14,6 +14,8 @@ const getMemoryStatus = currentResult => ({
 
 describe('vue-adaptive-memory', () => {
   test('should return "true" for unsupported case', async () => {
+    const { default: VueAdaptiveMemory } = require('./index.vue')
+
     const localVue = createLocalVue()
 
     const wrapper = mount(VueAdaptiveMemory, {
@@ -28,6 +30,8 @@ describe('vue-adaptive-memory', () => {
   })
 
   test('should return mockMemory status', async () => {
+    const { default: VueAdaptiveMemory } = require('./index.vue')
+
     const mockMemoryStatus = {
       deviceMemory: 4,
       totalJSHeapSize: 60,
@@ -36,7 +40,8 @@ describe('vue-adaptive-memory', () => {
     }
 
     global.navigator.deviceMemory = mockMemoryStatus.deviceMemory
-    global.window.performance.memory = {
+
+    global.performance.memory = {
       totalJSHeapSize: mockMemoryStatus.totalJSHeapSize,
       usedJSHeapSize: mockMemoryStatus.usedJSHeapSize,
       jsHeapSizeLimit: mockMemoryStatus.jsHeapSizeLimit
@@ -50,6 +55,8 @@ describe('vue-adaptive-memory', () => {
         default: '<template>{{ props }}</template>'
       }
     })
-    expect(wrapper.vm.initialMemoryStatus).toEqual(mockMemoryStatus)
+
+    await localVue.nextTick()
+    expect(wrapper.vm.memoryStatus).toEqual(mockMemoryStatus)
   })
 })

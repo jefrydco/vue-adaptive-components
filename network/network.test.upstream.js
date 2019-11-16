@@ -16,7 +16,7 @@
 
 import { renderHook, act } from '@testing-library/react-hooks'
 
-import { useNetworkStatus } from './'
+import { useNetworkStatus } from './index.upstream'
 
 describe('useNetworkStatus', () => {
   test('should return 4g of effectiveConnectionType', () => {

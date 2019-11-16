@@ -30,7 +30,7 @@ const getMemoryStatus = currentResult => ({
 
 describe('useMemoryStatus', () => {
   test(`should return "true" for unsupported case`, () => {
-    const { useMemoryStatus } = require('./')
+    const { useMemoryStatus } = require('./index.upstream')
     const { result } = renderHook(() => useMemoryStatus())
 
     expect(result.current.unsupported).toBe(true)
@@ -52,7 +52,7 @@ describe('useMemoryStatus', () => {
       jsHeapSizeLimit: mockMemoryStatus.jsHeapSizeLimit
     }
 
-    const { useMemoryStatus } = require('./')
+    const { useMemoryStatus } = require('./index.upstream')
     const { result } = renderHook(() => useMemoryStatus())
 
     expect(getMemoryStatus(result.current)).toEqual(mockMemoryStatus)

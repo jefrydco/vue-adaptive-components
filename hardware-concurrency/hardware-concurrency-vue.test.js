@@ -1,12 +1,13 @@
 import { mount, createLocalVue } from '@vue/test-utils'
-import VueAdaptiveHardwareConcurrency from './index.vue'
 
 afterEach(() => {
   jest.resetModules()
 })
 
 describe('vue-adaptive-hardware-concurrency', () => {
-  test('should return window.navigator.hardwareConcurrency', async () => {
+  test('should return global.navigator.hardwareConcurrency', async () => {
+    const { default: VueAdaptiveHardwareConcurrency } = require('./index.vue')
+
     const localVue = createLocalVue()
 
     const wrapper = mount(VueAdaptiveHardwareConcurrency, {
@@ -17,13 +18,15 @@ describe('vue-adaptive-hardware-concurrency', () => {
     })
 
     await localVue.nextTick()
-    expect(
-      wrapper.vm.initialHardwareConcurrency.numberOfLogicalProcessors
-    ).toBe(window.navigator.hardwareConcurrency)
+    expect(wrapper.vm.numberOfLogicalProcessors).toBe(
+      global.navigator.hardwareConcurrency
+    )
   })
 
   test('should return 4 for device of hardwareConcurrency = 4', async () => {
-    Object.defineProperty(window.navigator, 'hardwareConcurrency', {
+    const { default: VueAdaptiveHardwareConcurrency } = require('./index.vue')
+
+    Object.defineProperty(global.navigator, 'hardwareConcurrency', {
       value: 4,
       configurable: true,
       writable: true
@@ -43,7 +46,9 @@ describe('vue-adaptive-hardware-concurrency', () => {
   })
 
   test('should return 2 for device of hardwareConcurrency = 2', async () => {
-    Object.defineProperty(window.navigator, 'hardwareConcurrency', {
+    const { default: VueAdaptiveHardwareConcurrency } = require('./index.vue')
+
+    Object.defineProperty(global.navigator, 'hardwareConcurrency', {
       value: 2,
       configurable: true,
       writable: true

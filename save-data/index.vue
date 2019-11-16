@@ -14,21 +14,19 @@ export default {
     }
   },
   mounted() {
-    this.checkSupport()
     this.initSaveDataStatus()
   },
   methods: {
-    checkSupport() {
-      if ('connection' in navigator && 'saveData' in navigator.connection) {
-        this.unsupported = false
+    initSaveDataStatus() {
+      const { useSaveData } = require('./index.upstream')
+
+      const { unsupported, saveData } = useSaveData()
+
+      if (!unsupported) {
+        this.saveData = saveData
       } else {
         this.unsupported = true
       }
-    },
-    initSaveDataStatus() {
-      this.saveData = this.unsupported
-        ? null
-        : navigator.connection.saveData === true
     }
   }
 }
