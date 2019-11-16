@@ -43,9 +43,10 @@ and then use them in your components. Examples for each component and utility ca
   <vue-adaptive-network>
     <template v-slot="{ effectiveConnectionType }">
       <img v-if="effectiveConnectionType === 'slow-2g'" src='...' alt='low resolution' />
-      <img v-if="effectiveConnectionType === '2g'" src='...' alt='medium resolution' />
-      <img v-if="effectiveConnectionType === '3g'" src='...' alt='high resolution' />
-      <video v-if="effectiveConnectionType === '4g'" muted="" controls="">...</video>;
+      <img v-else-if="effectiveConnectionType === '2g'" src='...' alt='medium resolution' />
+      <img v-else-if="effectiveConnectionType === '3g'" src='...' alt='high resolution' />
+      <video v-else-if="effectiveConnectionType === '4g'" muted="" controls="">...</video>
+      <video v-else="" muted="" controls="">...</video>
     </template>
   </vue-adaptive-network>
 </template>
