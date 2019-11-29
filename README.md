@@ -1,6 +1,6 @@
 # Vue Adaptive Loading Components &amp; Utilities
 
-![](https://img.shields.io/github/license/jefrydco/vue-adaptive-components.svg) [![CircleCI](https://circleci.com/gh/jefrydco/vue-adaptive-components.svg?style=svg)](https://circleci.com/gh/jefrydco/vue-adaptive-components) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/vue-adaptive-components)
+![](https://img.shields.io/github/license/jefrydco/vue-adaptive-components.svg) [![CircleCI](https://circleci.com/gh/jefrydco/vue-adaptive-components.svg?style=svg)](https://circleci.com/gh/jefrydco/vue-adaptive-components) [![codecov](https://codecov.io/gh/jefrydco/vue-adaptive-components/branch/master/graph/badge.svg)](https://codecov.io/gh/jefrydco/vue-adaptive-components)
 
 > Deliver experiences best suited to a user's device and network constraints (experimental)
 
