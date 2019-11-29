@@ -37,5 +37,4 @@ jobs:
       - run: yarn test:coverage
 
       # upload coverage
-      - run: yarn global add codecov
-      - run: codecov
+      - run: yarn coverage
