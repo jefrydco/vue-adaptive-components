@@ -30,7 +30,7 @@ const useNetworkStatus = initialEffectiveConnectionType => {
     effectiveConnectionType: unsupported
       ? initialEffectiveConnectionType
       : navigator.connection.effectiveType
-  };
+  }
 
   const [networkStatus, setNetworkStatus] = useState(initialNetworkStatus)
 
@@ -40,15 +40,9 @@ const useNetworkStatus = initialEffectiveConnectionType => {
       const updateECTStatus = () => {
         setNetworkStatus({
           effectiveConnectionType: navigatorConnection.effectiveType
-<<<<<<< HEAD:network/index.js
-        });
-      };
-      navigatorConnection.addEventListener('change', updateECTStatus);
-=======
         })
       }
       navigatorConnection.addEventListener('change', updateECTStatus)
->>>>>>> Initial port:network/index.back.js
       return () => {
         navigatorConnection.removeEventListener('change', updateECTStatus)
       }

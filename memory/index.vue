@@ -12,6 +12,14 @@
 <script>
 export default {
   name: 'VueAdaptiveMemoryStatus',
+  props: {
+    initialMemoryStatus: {
+      type: Object,
+      default() {
+        return null
+      }
+    }
+  },
   data() {
     return {
       unsupported: false,
@@ -36,17 +44,14 @@ export default {
         totalJSHeapSize,
         usedJSHeapSize,
         jsHeapSizeLimit
-      } = useMemoryStatus()
+      } = useMemoryStatus(this.initialMemoryStatus)
 
-      if (!unsupported) {
-        this.memoryStatus = {
-          deviceMemory: deviceMemory,
-          totalJSHeapSize: totalJSHeapSize,
-          usedJSHeapSize: usedJSHeapSize,
-          jsHeapSizeLimit: jsHeapSizeLimit
-        }
-      } else {
-        this.unsupported = true
+      this.unsupported = unsupported
+      this.memoryStatus = {
+        deviceMemory: deviceMemory,
+        totalJSHeapSize: totalJSHeapSize,
+        usedJSHeapSize: usedJSHeapSize,
+        jsHeapSizeLimit: jsHeapSizeLimit
       }
     }
   }

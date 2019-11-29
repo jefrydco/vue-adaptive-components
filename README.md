@@ -64,12 +64,15 @@ export default {
 
 `effectiveConnectionType` values can be `slow-2g`, `2g`, `3g`, or `4g`.
 
-This hook accepts an optional `initialEffectiveConnectionType` string argument, which can be used to provide a `effectiveConnectionType` state value when the user's browser does not support the relevant [NetworkInformation API](https://wicg.github.io/netinfo/). Passing an initial value can also prove useful for server-side rendering, where the developer can pass an [ECT Client Hint](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/client-hints#ect) to detect the effective network connection type.
+This component accepts an optional `initial-effective-connection-type` string attribute, which can be used to provide a `effectiveConnectionType` state value when the user's browser does not support the relevant [NetworkInformation API](https://wicg.github.io/netinfo/). Passing an initial value can also prove useful for server-side rendering, where the developer can pass an [ECT Client Hint](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/client-hints#ect) to detect the effective network connection type.
 
-```js
-// Inside of a functional React component
-const initialEffectiveConnectionType = '4g';
-const { effectiveConnectionType } = useNetworkStatus(initialEffectiveConnectionType);
+```html
+<!-- Inside of a Vue component -->
+<template>
+  <vue-adaptive-network :initial-effective-connection-type="4g">
+    ...
+  </vue-adaptive-network>
+</template>
 ```
 
 ### Save Data
@@ -99,12 +102,15 @@ export default {
 
 `saveData` values can be `true` or `false`.
 
-This hook accepts an optional `initialSaveDataStatus` boolean argument, which can be used to provide a `saveData` state value when the user's browser does not support the relevant [NetworkInformation API](https://wicg.github.io/netinfo/). Passing an initial value can also prove useful for server-side rendering, where the developer can pass a server [Save-Data Client Hint](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/client-hints#save-data) that has been converted to a boolean to detect the user's data saving preference.
+This component accepts an optional `initial-save-data-status` boolean attribute, which can be used to provide a `saveData` state value when the user's browser does not support the relevant [NetworkInformation API](https://wicg.github.io/netinfo/). Passing an initial value can also prove useful for server-side rendering, where the developer can pass a server [Save-Data Client Hint](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/client-hints#save-data) that has been converted to a boolean to detect the user's data saving preference.
 
-```js
-// Inside of a functional React component
-const initialSaveDataStatus = true;
-const { saveData } = useSaveData(initialSaveDataStatus);
+```html
+// Inside of a Vue component
+<template>
+  <vue-adaptive-save-data :initial-save-data-status="false">
+    ...
+  </vue-adaptive-save-data>
+</template>
 ```
 
 ### CPU Cores / Hardware Concurrency
@@ -155,6 +161,19 @@ export default {
   }
 }
 </script>
+```
+
+`deviceMemory` values can be the approximate amount of device memory in gigabytes.
+
+This component accepts an optional `initial-memory-status` object attribute, which can be used to provide a `deviceMemory` state value when the user's browser does not support the relevant [DeviceMemory API](https://github.com/w3c/device-memory). Passing an initial value can also prove useful for server-side rendering, where the developer can pass a server [Device-Memory Client Hint](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/client-hints#save-data) to detect the memory capacity of the user's device.
+
+```html
+// Inside of a Vue component
+<template>
+  <vue-adaptive-memory :initial-memory-status="{ deviceMemory: 4 }">
+    ...
+  </vue-adaptive-memory>
+</template>
 ```
 
 ### Adaptive Code-loading & Code-splitting

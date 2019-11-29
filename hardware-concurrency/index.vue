@@ -29,11 +29,8 @@ export default {
         numberOfLogicalProcessors
       } = useHardwareConcurrency()
 
-      if (!unsupported) {
-        this.numberOfLogicalProcessors = numberOfLogicalProcessors
-      } else {
-        this.unsupported = true
-      }
+      this.unsupported = unsupported
+      this.numberOfLogicalProcessors = numberOfLogicalProcessors
     }
   }
 }

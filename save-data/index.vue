@@ -7,6 +7,12 @@
 <script>
 export default {
   name: 'VueAdaptiveSaveData',
+  props: {
+    initialSaveDataStatus: {
+      type: Boolean,
+      default: null
+    }
+  },
   data() {
     return {
       unsupported: false,
@@ -20,13 +26,10 @@ export default {
     initSaveDataStatus() {
       const { useSaveData } = require('./index.upstream')
 
-      const { unsupported, saveData } = useSaveData()
+      const { unsupported, saveData } = useSaveData(this.initialSaveDataStatus)
 
-      if (!unsupported) {
-        this.saveData = saveData
-      } else {
-        this.unsupported = true
-      }
+      this.unsupported = unsupported
+      this.saveData = saveData
     }
   }
 }

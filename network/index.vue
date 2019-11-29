@@ -1,18 +1,22 @@
 <template>
   <div class="vue-adaptive-network">
-    <slot v-bind="{ unsupported, ...networkStatus }" />
+    <slot v-bind="{ unsupported, effectiveConnectionType }" />
   </div>
 </template>
 
 <script>
 export default {
   name: 'VueAdaptiveNetwork',
+  props: {
+    initialEffectiveConnectionType: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       unsupported: false,
-      networkStatus: {
-        effectiveConnectionType: null
-      }
+      effectiveConnectionType: null
     }
   },
   mounted() {
@@ -35,23 +39,19 @@ export default {
       }
     },
     initNetworkStatus() {
-      this.networkStatus = !this.unsupported
-        ? {
-            effectiveConnectionType: navigator.connection.effectiveType
-          }
-        : {
-            unsupported: this.unsupported
-          }
+      this.effectiveConnectionType = !this.unsupported
+        ? navigator.connection.effectiveType
+        : this.initialEffectiveConnectionType
     },
     updateECTStatus() {
       const navigatorConnection = navigator.connection
-      this.networkStatus = {
-        effectiveConnectionType: navigatorConnection.effectiveType
-      }
+      this.effectiveConnectionType = navigatorConnection.effectiveType
     },
     initEventListener() {
-      const navigatorConnection = navigator.connection
-      navigatorConnection.addEventListener('change', this.updateECTStatus)
+      if (!this.unsupported) {
+        const navigatorConnection = navigator.connection
+        navigatorConnection.addEventListener('change', this.updateECTStatus)
+      }
     },
     removeEventListener() {
       const navigatorConnection = navigator.connection
