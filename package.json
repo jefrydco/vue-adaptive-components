@@ -16,14 +16,8 @@
   },
   "license": "Apache-2.0",
   "private": false,
-  "main": "dist/index.js",
-  "module": "dist/index.module.js",
-  "unpkg": "dist/index.umd.js",
-  "source": "index.js",
+  "main": "index.js",
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch",
-    "prepare": "npm run build",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
@@ -31,6 +25,7 @@
     "vue": "^2.6.10"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.5.5",
     "@testing-library/react-hooks": "^3.2.1",
     "@vue/test-utils": "^1.0.0-beta.29",
@@ -45,6 +40,7 @@
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^6.0.1",
     "husky": "^3.0.9",
     "jest": "^24.8.0",
