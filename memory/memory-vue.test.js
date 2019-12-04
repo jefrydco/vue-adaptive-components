@@ -49,7 +49,7 @@ describe('vue-adaptive-memory', () => {
 
     await localVue.nextTick()
     expect(wrapper.vm.unsupported).toBe(true)
-    expect(wrapper.vm.initialMemoryStatus.deviceMemory).toEqual(deviceMemory)
+    expect(wrapper.vm.memoryStatus.deviceMemory).toEqual(deviceMemory)
   })
 
   test('should return mockMemory status', async () => {
